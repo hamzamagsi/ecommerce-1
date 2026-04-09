@@ -199,15 +199,62 @@
     </div>
 
     <script>
-        const products = [
+       const products = [
+            // --- MEN'S COLLECTION (12 Items) ---
             { id: 1, name: "Men's Oversized Tee", price: 55, category: "men", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800" },
-            { id: 2, name: "Women's Linen Dress", price: 120, category: "women", img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800" },
-            { id: 3, name: "Kids' Cotton Set", price: 45, category: "kids", img: "https://images.unsplash.com/photo-1519704943920-18447d21799b?auto=format&fit=crop&w=800" },
-            { id: 4, name: "Leather Minimalist Watch", price: 195, category: "accessories", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800" },
             { id: 5, name: "Men's Chino Pants", price: 75, category: "men", img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800" },
+            { id: 9, name: "Men's Cargo Joggers", price: 65, category: "men", img: "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?auto=format&fit=crop&w=800" },
+            { id: 10, name: "Vintage Denim Shirt", price: 80, category: "men", img: "https://images.unsplash.com/photo-1550995694-3f5f4a7b1bd2?auto=format&fit=crop&w=800" },
+            { id: 11, name: "Tech Bomber Jacket", price: 140, category: "men", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800" },
+            { id: 12, name: "Premium Wool Sweater", price: 110, category: "men", img: "https://images.unsplash.com/photo-1614975058789-41316d0e2e9c?auto=format&fit=crop&w=800" },
+            { id: 13, name: "Relaxed Fit Shorts", price: 40, category: "men", img: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=800" },
+            { id: 29, name: "Linen Summer Shirt", price: 85, category: "men", img: "https://images.unsplash.com/photo-1594932224828-94e003993d52?auto=format&fit=crop&w=800" },
+            { id: 30, name: "Oxford Button Down", price: 95, category: "men", img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800" },
+            { id: 31, name: "Slim Fit Suit Jacket", price: 250, category: "men", img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800" },
+            { id: 32, name: "Classic Polo Shirt", price: 60, category: "men", img: "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=800" },
+            { id: 33, name: "Leather Biker Jacket", price: 290, category: "men", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800" },
+
+            // --- WOMEN'S COLLECTION (12 Items) ---
+            { id: 2, name: "Women's Linen Dress", price: 120, category: "women", img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800" },
             { id: 6, name: "Women's Silk Blouse", price: 85, category: "women", img: "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?auto=format&fit=crop&w=800" },
+            { id: 14, name: "Ribbed Knit Sweater", price: 70, category: "women", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=800" },
+            { id: 15, name: "High-Waist Trousers", price: 90, category: "women", img: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800" },
+            { id: 16, name: "Floral Wrap Skirt", price: 55, category: "women", img: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=800" },
+            { id: 17, name: "Trench Coat", price: 210, category: "women", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800" },
+            { id: 18, name: "Casual Denim Jeans", price: 85, category: "women", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800" },
+            { id: 34, name: "Satin Evening Gown", price: 180, category: "women", img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800" },
+            { id: 35, name: "Wool Overcoat", price: 240, category: "women", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800" },
+            { id: 36, name: "Boho Maxi Skirt", price: 65, category: "women", img: "https://images.unsplash.com/photo-1582142306909-195724d33ffc?auto=format&fit=crop&w=800" },
+            { id: 37, name: "Athletic Leggings", price: 50, category: "women", img: "https://images.unsplash.com/photo-1506629082925-5347f78a7fb9?auto=format&fit=crop&w=800" },
+            { id: 38, name: "Summer Sundress", price: 75, category: "women", img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800" },
+
+            // --- KIDS' COLLECTION (12 Items) ---
+            { id: 3, name: "Kids' Cotton Set", price: 45, category: "kids", img: "https://images.unsplash.com/photo-1519704943920-18447d21799b?auto=format&fit=crop&w=800" },
             { id: 7, name: "Kids' Denim Jacket", price: 65, category: "kids", img: "https://images.unsplash.com/photo-1519457431-7571f0182746?auto=format&fit=crop&w=800" },
-            { id: 8, name: "Polarized Sunglasses", price: 110, category: "accessories", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=800" }
+            { id: 19, name: "Graphic Hoodie", price: 50, category: "kids", img: "https://images.unsplash.com/photo-1622243503549-aa2a82a8330a?auto=format&fit=crop&w=800" },
+            { id: 20, name: "Stripe Knit Cardigan", price: 45, category: "kids", img: "https://images.unsplash.com/photo-1619608405323-e99859387bb3?auto=format&fit=crop&w=800" },
+            { id: 21, name: "Puff Sleeve Top", price: 35, category: "kids", img: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=800" },
+            { id: 22, name: "Kids' Winter Parka", price: 95, category: "kids", img: "https://images.unsplash.com/photo-1544474415-e21013ee4405?auto=format&fit=crop&w=800" },
+            { id: 23, name: "Cozy Fleece Joggers", price: 30, category: "kids", img: "https://images.unsplash.com/photo-1604467731651-3977520e4b8a?auto=format&fit=crop&w=800" },
+            { id: 39, name: "Rainy Day Poncho", price: 40, category: "kids", img: "https://images.unsplash.com/photo-1542045434458-94625b161280?auto=format&fit=crop&w=800" },
+            { id: 40, name: "Dinosaur T-Shirt", price: 25, category: "kids", img: "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?auto=format&fit=crop&w=800" },
+            { id: 41, name: "Kids' Beanie & Glove Set", price: 20, category: "kids", img: "https://images.unsplash.com/photo-1520110120835-c96a9ef95692?auto=format&fit=crop&w=800" },
+            { id: 42, name: "Pajama Party Set", price: 35, category: "kids", img: "https://images.unsplash.com/photo-1555009393-f20bdb245c4d?auto=format&fit=crop&w=800" },
+            { id: 43, name: "Summer Swim Shorts", price: 28, category: "kids", img: "https://images.unsplash.com/photo-1519457431-7571f0182746?auto=format&fit=crop&w=800" },
+
+            // --- ACCESSORIES COLLECTION (12 Items) ---
+            { id: 4, name: "Leather Minimalist Watch", price: 195, category: "accessories", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800" },
+            { id: 8, name: "Polarized Sunglasses", price: 110, category: "accessories", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=800" },
+            { id: 24, name: "Silver Link Bracelet", price: 60, category: "accessories", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800" },
+            { id: 25, name: "Canvas Weekend Bag", price: 130, category: "accessories", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800" },
+            { id: 26, name: "Minimalist Leather Wallet", price: 45, category: "accessories", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=800" },
+            { id: 27, name: "Beanie Hat", price: 25, category: "accessories", img: "https://images.unsplash.com/photo-1576871333021-69fd81e1d74b?auto=format&fit=crop&w=800" },
+            { id: 28, name: "Silk Neck Scarf", price: 40, category: "accessories", img: "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?auto=format&fit=crop&w=800" },
+            { id: 44, name: "Wool Felt Fedora", price: 85, category: "accessories", img: "https://images.unsplash.com/photo-1514327605112-b887c0e61c0a?auto=format&fit=crop&w=800" },
+            { id: 45, name: "Gold Hoop Earrings", price: 120, category: "accessories", img: "https://images.unsplash.com/photo-1535633302723-997f858509ec?auto=format&fit=crop&w=800" },
+            { id: 46, name: "Braided Leather Belt", price: 50, category: "accessories", img: "https://images.unsplash.com/photo-1624222247344-550fb8ec5522?auto=format&fit=crop&w=800" },
+            { id: 47, name: "Laptop Sleeve", price: 65, category: "accessories", img: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=800" },
+            { id: 48, name: "Knit Wool Scarf", price: 55, category: "accessories", img: "https://images.unsplash.com/photo-1520903074185-8ec362b39c5c?auto=format&fit=crop&w=800" }
         ];
 
         let cart = [];
