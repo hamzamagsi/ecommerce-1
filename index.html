@@ -97,9 +97,13 @@
 
         .checkout-view { position: fixed; inset: 0; background: var(--bg); z-index: 3000; display: none; padding: 100px 10%; overflow-y: auto; }
         .checkout-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 80px; }
+        .input-group label { font-size: 12px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 8px; text-transform: uppercase; }
         .input-group input { width: 100%; padding: 14px; border: 1.5px solid rgba(128,128,128,0.2); background: var(--card-bg); color: var(--primary); border-radius: 10px; }
         .summary-box { background: var(--card-bg); padding: 40px; border-radius: 20px; }
         .checkout-btn { width: 100%; padding: 18px; background: var(--primary); color: var(--bg); border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 15px; }
+
+        .cart-item { display: flex; gap: 15px; margin-bottom: 20px; align-items: center; }
+        .cart-item img { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; }
 
         @media (max-width: 768px) { .sidebar, .collection-view { width: 100%; right: -100%; } .checkout-grid { grid-template-columns: 1fr; } }
     </style>
@@ -121,6 +125,9 @@
             <button class="theme-btn" onclick="toggleTheme()" id="theme-icon">
                 <i class="ri-moon-line"></i>
             </button>
+            <div class="cart-trigger" onclick="openAuth()" style="margin-right: 25px;">
+                <i class="ri-user-line"></i>
+            </div>
             <div class="cart-trigger" onclick="openCart()">
                 <i class="ri-shopping-cart-2-line"></i>
                 <span id="cart-count">0</span>
@@ -159,13 +166,54 @@
         </ul>
     </div>
 
+    <div class="sidebar" id="auth-sidebar">
+        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+            <h3 id="auth-title" style="font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">Login</h3>
+            <i class="ri-close-line" style="cursor:pointer; font-size: 24px;" onclick="closeAll()"></i>
+        </div>
+        
+        <div id="login-form">
+            <div class="input-group" style="margin-bottom:20px">
+                <label>EMAIL</label>
+                <input type="email" placeholder="email@example.com">
+            </div>
+            <div class="input-group" style="margin-bottom:20px">
+                <label>PASSWORD</label>
+                <input type="password" placeholder="••••••••">
+            </div>
+            <button class="checkout-btn">Sign In</button>
+            <p style="text-align: center; margin-top: 25px; font-size: 13px; color: var(--text-muted);">
+                New to Esthétique? <span onclick="toggleAuthMode()" style="color: var(--accent); cursor: pointer; font-weight: 700;">Create Account</span>
+            </p>
+        </div>
+
+        <div id="register-form" style="display: none;">
+            <div class="input-group" style="margin-bottom:20px">
+                <label>FULL NAME</label>
+                <input type="text" placeholder="John Doe">
+            </div>
+            <div class="input-group" style="margin-bottom:20px">
+                <label>EMAIL</label>
+                <input type="email" placeholder="email@example.com">
+            </div>
+            <div class="input-group" style="margin-bottom:20px">
+                <label>PASSWORD</label>
+                <input type="password" placeholder="••••••••">
+            </div>
+            <button class="checkout-btn" style="background: var(--accent); color: white;">Register</button>
+            <p style="text-align: center; margin-top: 25px; font-size: 13px; color: var(--text-muted);">
+                Already have an account? <span onclick="toggleAuthMode()" style="color: var(--accent); cursor: pointer; font-weight: 700;">Login here</span>
+            </p>
+        </div>
+    </div>
+
     <div class="sidebar" id="cart-sidebar">
         <div style="display:flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(128,128,128,0.2); padding-bottom: 20px;">
             <h3>Your Bag</h3>
             <i class="ri-close-line" style="cursor:pointer; font-size: 24px;" onclick="closeAll()"></i>
         </div>
-        <div class="cart-items" id="cart-items-list"></div>
-        <div class="cart-total-box">
+        <div class="cart-items" id="cart-items-list" style="flex: 1; overflow-y: auto; padding: 20px 0;"></div>
+        <div class="cart-total-box" style="padding-top: 20px; border-top: 1px solid rgba(128,128,128,0.2);">
             <div style="display:flex; justify-content: space-between; font-weight: 800; font-size: 18px;">
                 <span>Total</span>
                 <span id="cart-total-price">$0.00</span>
@@ -200,7 +248,6 @@
 
     <script>
        const products = [
-            // --- MEN'S COLLECTION (12 Items) ---
             { id: 1, name: "Men's Oversized Tee", price: 55, category: "men", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800" },
             { id: 5, name: "Men's Chino Pants", price: 75, category: "men", img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800" },
             { id: 9, name: "Men's Cargo Joggers", price: 65, category: "men", img: "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?auto=format&fit=crop&w=800" },
@@ -214,7 +261,6 @@
             { id: 32, name: "Classic Polo Shirt", price: 60, category: "men", img: "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=800" },
             { id: 33, name: "Leather Biker Jacket", price: 290, category: "men", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800" },
 
-            // --- WOMEN'S COLLECTION (12 Items) ---
             { id: 2, name: "Women's Linen Dress", price: 120, category: "women", img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800" },
             { id: 6, name: "Women's Silk Blouse", price: 85, category: "women", img: "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?auto=format&fit=crop&w=800" },
             { id: 14, name: "Ribbed Knit Sweater", price: 70, category: "women", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=800" },
@@ -228,7 +274,6 @@
             { id: 37, name: "Athletic Leggings", price: 50, category: "women", img: "https://images.unsplash.com/photo-1506629082925-5347f78a7fb9?auto=format&fit=crop&w=800" },
             { id: 38, name: "Summer Sundress", price: 75, category: "women", img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800" },
 
-            // --- KIDS' COLLECTION (12 Items) ---
             { id: 3, name: "Kids' Cotton Set", price: 45, category: "kids", img: "https://images.unsplash.com/photo-1519704943920-18447d21799b?auto=format&fit=crop&w=800" },
             { id: 7, name: "Kids' Denim Jacket", price: 65, category: "kids", img: "https://images.unsplash.com/photo-1519457431-7571f0182746?auto=format&fit=crop&w=800" },
             { id: 19, name: "Graphic Hoodie", price: 50, category: "kids", img: "https://images.unsplash.com/photo-1622243503549-aa2a82a8330a?auto=format&fit=crop&w=800" },
@@ -242,7 +287,6 @@
             { id: 42, name: "Pajama Party Set", price: 35, category: "kids", img: "https://images.unsplash.com/photo-1555009393-f20bdb245c4d?auto=format&fit=crop&w=800" },
             { id: 43, name: "Summer Swim Shorts", price: 28, category: "kids", img: "https://images.unsplash.com/photo-1519457431-7571f0182746?auto=format&fit=crop&w=800" },
 
-            // --- ACCESSORIES COLLECTION (12 Items) ---
             { id: 4, name: "Leather Minimalist Watch", price: 195, category: "accessories", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800" },
             { id: 8, name: "Polarized Sunglasses", price: 110, category: "accessories", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=800" },
             { id: 24, name: "Silver Link Bracelet", price: 60, category: "accessories", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800" },
@@ -288,7 +332,7 @@
                     </div>
                 </div>
             `).join('');
-            document.getElementById('shop').scrollIntoView();
+            if(cat !== 'all') document.getElementById('shop').scrollIntoView();
         }
 
         function addToCart(id) {
@@ -308,11 +352,21 @@
             document.getElementById('summary-total-price').innerText = `$${total}.00`;
         }
 
-        function openCart() { document.getElementById('cart-sidebar').classList.add('active'); document.getElementById('overlay').style.display = 'block'; }
-        function openCollections() { document.getElementById('collection-sidebar').classList.add('active'); document.getElementById('overlay').style.display = 'block'; }
+        function openCart() { closeAll(); document.getElementById('cart-sidebar').classList.add('active'); document.getElementById('overlay').style.display = 'block'; }
+        function openCollections() { closeAll(); document.getElementById('collection-sidebar').classList.add('active'); document.getElementById('overlay').style.display = 'block'; }
+        function openAuth() { closeAll(); document.getElementById('auth-sidebar').classList.add('active'); document.getElementById('overlay').style.display = 'block'; }
+        
+        function toggleAuthMode() {
+            const isLogin = document.getElementById('login-form').style.display !== 'none';
+            document.getElementById('login-form').style.display = isLogin ? 'none' : 'block';
+            document.getElementById('register-form').style.display = isLogin ? 'block' : 'none';
+            document.getElementById('auth-title').innerText = isLogin ? 'Register' : 'Login';
+        }
+
         function closeAll() { 
             document.getElementById('cart-sidebar').classList.remove('active'); 
             document.getElementById('collection-sidebar').classList.remove('active');
+            document.getElementById('auth-sidebar').classList.remove('active');
             document.getElementById('overlay').style.display = 'none'; 
         }
 
